@@ -11,14 +11,29 @@ import VisionKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, VNDocumentCameraViewControllerDelegate {
     
+    @IBOutlet weak var languageButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var recognizedTextView: UITextView!
     
+    private var currentRecognitionLanguage: String = "en_US"
     private var recognizedText = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let languageMenu = UIMenu(title: "", children: [
+            UIAction(title: "English", image: nil, identifier: nil, handler: { _ in
+                self.currentRecognitionLanguage = "en_US"
+                self.languageButton.title = "English"
+                self.recognizeText(image: self.imageView.image ?? UIImage())
+            }),
+            UIAction(title: "日本語", image: nil, identifier: nil, handler: { _ in
+                self.currentRecognitionLanguage = "ja_JP"
+                self.languageButton.title = "日本語"
+                self.recognizeText(image: self.imageView.image ?? UIImage())
+            })
+        ])
+        languageButton.menu = languageMenu
     }
     
     @IBAction func imageSelectButtonTapped(_ sender: Any) {
@@ -40,7 +55,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let requestHandler = VNImageRequestHandler(cgImage: cgImage)
         let recognizeTextRequest = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         recognizeTextRequest.recognitionLevel = .accurate
-        recognizeTextRequest.recognitionLanguages = ["en_US"]
+        recognizeTextRequest.recognitionLanguages = [currentRecognitionLanguage]
         recognizeTextRequest.usesLanguageCorrection = true
         do {
             try requestHandler.perform([recognizeTextRequest])

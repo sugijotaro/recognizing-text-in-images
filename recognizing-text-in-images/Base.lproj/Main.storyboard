@@ -60,6 +60,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="18b-4f-q2r">
+                        <barButtonItem key="leftBarButtonItem" title="English" id="R36-Ze-ytc"/>
                         <barButtonItem key="rightBarButtonItem" title="Image Select" id="KRq-sj-0xh">
                             <connections>
                                 <action selector="imageSelectButtonTapped:" destination="BYZ-38-t0r" id="gKa-Pb-3mM"/>
@@ -68,6 +69,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="qu8-6o-mBB" id="WZ0-Ts-2KN"/>
+                        <outlet property="languageButton" destination="R36-Ze-ytc" id="PsX-Sf-LDm"/>
                         <outlet property="recognizedTextView" destination="WjS-e4-jfE" id="3Fe-ac-uKA"/>
                     </connections>
                 </viewController>
